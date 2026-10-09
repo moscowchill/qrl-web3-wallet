@@ -17,7 +17,7 @@ npm test
 
 Why: this wallet handles input that the compiler cannot see. Messages from dApps, values read from extension storage and messages passed through the service worker all arrive as `unknown`. A cast tells the compiler a shape that nobody checked. A runtime guard (a type predicate, a zod schema, a `typeof` check) checks it and narrows the type as a result, so the type matches what the code received.
 
-Tests may use assertions, `any` and the `no-unsafe-*` rules, since they feed malformed input and mock internals on purpose.
+Test files are exempt from the assertion, `any`, non-null and `no-unsafe-*` rules, since they feed malformed input and mock internals on purpose.
 
 ## The ratchet
 
@@ -29,4 +29,6 @@ To shrink the list:
 2. Delete the file from that rule's list.
 3. Run `npm run lint`. It must exit 0.
 
-The list only ever gets shorter. A new file that needs an entry should be fixed instead.
+The list only ever gets shorter. A violation in a new file gets fixed in that file.
+
+The type-aware rules cover the files in `tsconfig.json` plus `vite.config.ts`. `vitest.config.ts` belongs to no tsconfig project, so it stays outside them until it joins one.

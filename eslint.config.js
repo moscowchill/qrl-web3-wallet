@@ -6,7 +6,7 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 import ratchet from "./eslint.ratchet.js";
 
-const TYPED_FILES = ["src/**/*.{ts,tsx}", "vitest.setup.ts"];
+const TYPED_FILES = ["src/**/*.{ts,tsx}", "vitest.setup.ts", "vite.config.ts"];
 
 export default [
   { ignores: ["Extension/**", "coverage/**", "scripts/**"] },
