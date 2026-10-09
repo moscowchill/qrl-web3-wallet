@@ -274,6 +274,15 @@ describe("StorageUtil", () => {
       expect(result.chainId).toBe("0x2");
     });
 
+    it("applies edits to the default chain before any chain switch", async () => {
+      const editedUrl = "https://edited.example.org/rpc";
+      await StorageUtil.setAllBlockChains([
+        { ...chain1, defaultRpcUrl: editedUrl },
+      ] as any);
+      const result = await StorageUtil.getActiveBlockChain();
+      expect(result.defaultRpcUrl).toBe(editedUrl);
+    });
+
     it("should return default blockchain when active not found", async () => {
       await StorageUtil.setActiveBlockChain("0x999");
       const result = await StorageUtil.getActiveBlockChain();
