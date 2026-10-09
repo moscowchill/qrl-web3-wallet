@@ -19,6 +19,7 @@ import {
   QRL_POST_MESSAGE_STREAM,
   QRL_WALLET_PROVIDER_NAME,
 } from "./constants/streamConstants";
+import { chainIdToHex } from "./utils/chainIdUtils";
 import { checkForLastError, getSerializableObject } from "./utils/scriptUtils";
 import { asDuplexStream, asStreamLifecycle } from "./utils/streamTypeUtils";
 
@@ -228,10 +229,10 @@ const prepareListeners = () => {
       } else if (
         method === UNRESTRICTED_METHODS.QRL_WEB3_WALLET_GET_PROVIDER_STATE
       ) {
-        const chainId = (await qrl?.getChainId())?.toString() ?? "";
+        const chainId = await qrl?.getChainId();
         const networkVersion = (await qrl?.net.getId())?.toString() ?? "";
         return {
-          chainId: `0x${chainId}`,
+          chainId: chainId === undefined ? "0x" : chainIdToHex(chainId),
           networkVersion,
           isUnlocked: false,
           accounts: [],
