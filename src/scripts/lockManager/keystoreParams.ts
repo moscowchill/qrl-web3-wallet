@@ -22,8 +22,8 @@ type KdfParamsLike = {
 export const shouldUpgradeKeystoreParams = (keystore: unknown): boolean => {
   if (!keystore || typeof keystore !== "object") return false;
   // Real keystores (the KeyStore type returned by encrypt()) nest
-  // kdf/kdfparams under `crypto`; tolerate a flat shape too so foreign
-  // inputs are still evaluated rather than skipped.
+  // kdf/kdfparams under `crypto`. A flat shape is still accepted so
+  // foreign inputs get evaluated too.
   const outer = keystore as { crypto?: unknown };
   const k: KdfParamsLike =
     outer.crypto && typeof outer.crypto === "object"
