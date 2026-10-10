@@ -70,12 +70,6 @@ export default [
       ],
     },
   },
-  {
-    files: ["**/*.test.{ts,tsx}", "**/__mocks__/**/*.{ts,tsx}"],
-    rules: {
-      "@typescript-eslint/no-explicit-any": "off",
-    },
-  },
   // Tests feed malformed input and mock internals, so assertions and the
   // unsafe-* family are a legitimate tool there. Production code keeps the
   // full rule set.
@@ -86,6 +80,7 @@ export default [
       "vitest.setup.ts",
     ],
     rules: {
+      "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/consistent-type-assertions": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/no-unsafe-assignment": "off",
